@@ -6,7 +6,7 @@ require "kconv"
 	num = [1,2,3,4] 
 	vertical = Array.new(size)
         vertical[0] = [nil,nil,3,nil]
-        vertical[1] = [nil,nil,2,nil]
+        vertical[1] = [nil,nil,1,nil]
         vertical[2] = [nil,nil,nil,nil]
         vertical[3] = [3,4,nil,nil]
 	
@@ -27,60 +27,57 @@ require "kconv"
 	printVer(vertical)
 ###########################################################	
 	def check(ver,ve,ho,d,number) #get array, v-number,h-number,area-div,number
-		c=0
-		for l in ver[ve] do #check vertical
-			if l == number then
-				c = false
-				return c
+		for l in 0..ver.size-1 do #check vertical
+			if ver[ve][l]==number then
+				return false
 				break
 			end
 		end
 		#print("1")
 		for i in 0..ver.size-1 do #check horizontal
 			if ver[i][ho]==number then
-				c = false
-				return c
+				return false
 				break
 			end
 		end
-
+		areanum = (ve/d).to_i * 2 + (ho/d).to_i
 		asize = d*d
 		judge = Array.new(asize)
-		judge[0] = [nil,nil,nil,nil]
-		judge[1] = [nil,nil,nil,nil]
-        	judge[2] = [nil,nil,nil,nil]
-        	judge[3] = [nil,nil,nil,nil]
-
-		areanum=ve/d*2+ho/d #area numbering
-		print("2")
-		for j in judge[areanum] do #check area
-				if j==number then
-					c=false
-				end
+		
+		print(areanum)
+		for j in judge do
+			j = judge
+			for i in j do
+				i = nil
+			end
 		end
-		return c
+		if judge[areanum].nitems==0 then
+			judge[areanum][0]=number
+		end
+		for j in judge[areanum] do #check area
+		#	print(j)
+			if j==number then
+				return false
+				break
+			end
+		end
+		judge[areanum][judge[areanum].nitems]=number
+		return true
 	end
 
 	
 	k=0
 	for v in 0..vertical.size-1 do #entering number
                 for h in 0..vertical[v].size-1 do
-			while true
+			while k<size
 				if check(vertical,v,h,div,num[k])
                    			vertical[v][h]=num[k]
-					print("checked")
+					#print("checked")
 					break
-				else
-					k=k+1
-					if k>=num.size then
-						k=0
-					end
 				end
-
-				if k>=num.size then #roop in num 1,2,3,4,1,2,3...
-					k=0
-				end
+				k=k+1
 			end
+			k=0
                 end
 	end
 	print("end\n")
