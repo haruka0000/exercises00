@@ -35,7 +35,7 @@ require "kconv"
 				break
 			end
 		end
-		
+		#print("1")
 		for i in 0..ver.size-1 do #check horizontal
 			if ver[i][ho]==number then
 				c = false
@@ -46,41 +46,43 @@ require "kconv"
 
 		asize = d*d
 		judge = Array.new(asize)
-#		for j in judge do #area reset
-#			j = Array.new(d*d)
-#			for i in j do
-#				i=nil
-#			end
-#		end
-		areanum=ve/d*2+ho/d #area numbering
+		judge[0] = [nil,nil,nil,nil]
+		judge[1] = [nil,nil,nil,nil]
+        	judge[2] = [nil,nil,nil,nil]
+        	judge[3] = [nil,nil,nil,nil]
 
-	#	for j in judge[areanum] do #check area
-	#			if j==vertical[ve][ho] then
-	#				c=false
-	#			end
-	#	end
+		areanum=ve/d*2+ho/d #area numbering
+		print("2")
+		for j in judge[areanum] do #check area
+				if j==number then
+					c=false
+				end
+		end
 		return c
 	end
 
 	
 	k=0
-	for v in 0..vertical.size-1 do #enterring number
+	for v in 0..vertical.size-1 do #entering number
                 for h in 0..vertical[v].size-1 do
 			while true
 				if check(vertical,v,h,div,num[k])
                    			vertical[v][h]=num[k]
+					print("checked")
 					break
 				else
 					k=k+1
+					if k>=num.size then
+						k=0
+					end
 				end
 
-				if k>size-1 then #roop in num 1,2,3,4,1,2,3...
+				if k>=num.size then #roop in num 1,2,3,4,1,2,3...
 					k=0
 				end
 			end
                 end
-		k=0
-        end
+	end
 	print("end\n")
 ###########################################################
 	printVer(vertical) #print sudoku
